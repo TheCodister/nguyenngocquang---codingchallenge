@@ -1,20 +1,22 @@
 function sum_to_n_a1(n: number): number {
-  return (n * (n + 1)) / 2;
+  return (n * (n + 1)) / 2; // Gauss Summation Formula. Complexity O(1)
 }
 
 function sum_to_n_b1(n: number): number {
   if (n === 1) return 1;
-  return n + sum_to_n_b(n - 1);
+  return n + sum_to_n_b1(n - 1); // Recursion. Complexity O(n)
 }
 
 function sum_to_n_c1(n: number): number {
   return [...Array(n).keys()]
     .map((i) => i + 1)
-    .reduce((acc, val) => acc + val, 0);
+    .reduce((acc, val) => acc + val, 0); // Array Reduce. Complexity O(n)
 }
 
+//MORE WAYS TO SOLVE THE PROBLEM
+
 function sum_to_n_d1(n: number): number {
-  return (n >> 1) * (n + 1) + (n & 1 ? (n + 1) >> 1 : 0);
+  return (n >> 1) * (n + 1) + (n & 1 ? (n + 1) >> 1 : 0); // Bitwise Summation. Complexity O(1)
 }
 
 function sum_to_n_e1(n: number): number {
@@ -22,7 +24,7 @@ function sum_to_n_e1(n: number): number {
   if (n === 2) return 3;
 
   let mid = Math.floor(n / 2);
-  return sum_to_n_e(mid) + sum_to_n_e(n - mid);
+  return sum_to_n_e1(mid) + sum_to_n_e1(n - mid); // Divide & Conquer. Complexity O(log n)
 }
 
 const testValue = 10_000; // Test with a large value
