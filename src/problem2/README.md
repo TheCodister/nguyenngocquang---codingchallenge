@@ -1,50 +1,69 @@
-# Vite & HeroUI Template
+# Currency Swap App
 
-This is a template for creating applications using Vite and HeroUI (v2).
+A modern and user-friendly currency swap application built with React, Vite,
+TypeScript, Tailwind CSS, and Hero UI. This project allows users to swap assets
+between different currencies with real-time conversion rates.
 
-[Try it on CodeSandbox](https://githubbox.com/frontio-ai/vite-template)
+## 🚀 Features
 
-## Technologies Used
+- Swap between supported cryptocurrencies
+- Fetch real-time currency prices using React Query
+- Interactive UI with **Hero UI** components
+- Form validation and error handling
+- Loading states for better user experience
+- Responsive design
 
-- [Vite](https://vitejs.dev/guide/)
-- [HeroUI](https://heroui.com)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+## 🛠️ Prerequisites
 
-## How to Use
+Make sure you have the following installed before running the project:
 
-To clone the project, run the following command:
+- **[Node.js](https://nodejs.org/)** (v16 or higher recommended)
+- **[pnpm](https://pnpm.io/)** (preferred package manager)
+- **[Vite](https://vitejs.dev/)** (Fast build tool for React)
+- **[React](https://react.dev/)** (Latest version)
+- **[TypeScript](https://www.typescriptlang.org/)**
+- **[Tailwind CSS](https://tailwindcss.com/)** (For styling)
+- **[Hero UI](https://www.heroui.com/)** (For UI components)
+- **[React Query](https://tanstack.com/query/latest)** (For fetching and caching
+  currency data)
+- **[Axios](https://axios-http.com/)** (For API calls)
 
-```bash
-git clone https://github.com/frontio-ai/vite-template.git
+## 📦 Installation
+
+Clone the repository and install dependencies using `pnpm`:
+
+```sh
+# Clone the repository
+git clone https://github.com/TheCodister/nguyenngocquang---codingchallenge.git
+cd src/problem2
+
+# Install dependencies
+pnpm install
 ```
 
-### Install dependencies
+## 🏃‍♂️ Running the App
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+Start the development server:
 
-```bash
-npm install
+```sh
+pnpm dev
 ```
 
-### Run the development server
+Then, open `http://localhost:5173/` in your browser.
 
-```bash
-npm run dev
+## 🔧 Configuration
+
+The application fetches currency prices from:
+
+```
+https://interview.switcheo.com/prices.json
 ```
 
-### Setup pnpm (optional)
+## 🤝 Contribution
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+Feel free to fork this repository and contribute by submitting a pull request.
+🚀
 
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
+## 📜 License
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/frontio-ai/vite-template/blob/main/LICENSE).
+This project is licensed under the my License.
