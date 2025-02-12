@@ -11,7 +11,20 @@ const fetchPrices = async (): Promise<PriceData[]> => {
   const { data } = await axios.get<PriceData[]>(
     'https://interview.switcheo.com/prices.json',
   )
-  return data
+  const filteredData = data.reduce(
+    (acc, curr) => {
+      if (
+        !acc[curr.currency] ||
+        new Date(acc[curr.currency].date) < new Date(curr.date)
+      ) {
+        acc[curr.currency] = curr
+      }
+      return acc
+    },
+    {} as Record<string, PriceData>,
+  )
+
+  return Object.values(filteredData)
 }
 
 const useGetPrice = () => {

@@ -51,6 +51,17 @@ pnpm dev
 
 Then, open `http://localhost:5173/` in your browser.
 
+### If you want to run the history storing and deleting feature, do the following:
+
+```sh
+cd ..
+cd problem5
+pnpm install
+pnpm dev
+```
+
+The backend development server has start at http://localhost:3001/
+
 ## 🔧 Configuration
 
 The application fetches currency prices from:
