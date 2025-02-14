@@ -78,4 +78,4 @@ Feel free to fork this repository, improve the solutions, and submit a pull requ
 
 ## 📜 License
 
-This project is licensed under **[Your License]**.
+This project is licensed under my license.
