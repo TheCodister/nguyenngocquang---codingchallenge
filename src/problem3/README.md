@@ -138,9 +138,9 @@ const getPriority = useCallback(
 
 **Memoization with useCallback**
 
-Before: The function was recreated on every render.
+- Before: The function was recreated on every render.
 
-After: The function is memoized using useCallback.
+- After: The function is memoized using useCallback.
 
 ---
 
