@@ -19,6 +19,16 @@ Make sure you have the following installed before running the backend:
 - **[SQLite](https://www.sqlite.org//)** (for storing conversion data)
 - **[Prisma](https://www.prisma.io/)** (ORM for database management)
 
+## ❓ Why I Chose These Technologies
+
+- **Node.js:** A powerful, asynchronous, event-driven JavaScript runtime. It is
+  essential for running JavaScript-based applications, including both the
+  frontend and backend of this project.
+- **pnpm:** I prefer **pnpm** over **npm** or **Yarn** because it is faster and
+  uses less memory when installing dependencies.
+- **SQLite**: Since this is a simple application, SQLite is sufficient for handling basic CRUD operations. For larger projects, I would typically use PostgreSQL.
+- **Prisma**: Prisma is a modern and powerful ORM that provides better control over data compared to traditional ORMs. It also enhances developer productivity with its intuitive API and type safety.
+
 ## 📦 Installation
 
 Clone the repository and install dependencies using `pnpm`:
