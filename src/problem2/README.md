@@ -28,6 +28,39 @@ Make sure you have the following installed before running the project:
   currency data)
 - **[Axios](https://axios-http.com/)** (For API calls)
 
+## ❓ Why I Chose These Technologies
+
+- **Node.js:** A powerful, asynchronous, event-driven JavaScript runtime. It is
+  essential for running JavaScript-based applications, including both the
+  frontend and backend of this project.
+- **pnpm:** I prefer **pnpm** over **npm** or **Yarn** because it is faster and
+  uses less memory when installing dependencies.
+- **Vite:** Vite significantly improves the development experience by solving
+  two major challenges in web development: **slow server startup** and **slow
+  updates**. It provides instant HMR (Hot Module Replacement) and faster builds.
+- **React:** A widely used modern frontend library that provides a
+  component-based architecture, enabling efficient UI development. Its extensive
+  ecosystem includes libraries that enhance UI design and improve application
+  performance.
+- **TypeScript:** Unlike JavaScript, TypeScript is **statically typed**,
+  allowing for early error detection during **compile-time** rather than
+  **runtime**. This makes debugging easier and enhances maintainability,
+  especially in large projects.
+- **Tailwind CSS:** Tailwind CSS streamlines styling by eliminating the need to
+  create separate CSS files. It provides utility-first classes that make styling
+  **faster** and **more efficient**. While class names may appear cluttered, the
+  benefits of rapid development outweigh this downside.
+- **Hero UI:** A UI component library that combines the flexibility of
+  **Headless UI** with the design consistency of **Material UI**. It integrates
+  seamlessly with Tailwind CSS, allowing for easy customization and a better
+  user experience.
+- **React Query:** A powerful tool for managing server state in React
+  applications. It simplifies data fetching, caching, synchronization, and state
+  management, significantly improving performance and developer productivity.
+- **Axios:** An alternative to the built-in `fetch()` API that resolves
+  **Promise Hell** by simplifying asynchronous requests. It provides better
+  error handling, request cancellation, and easier integration with React Query.
+
 ## 📦 Installation
 
 Clone the repository and install dependencies using `pnpm`:
