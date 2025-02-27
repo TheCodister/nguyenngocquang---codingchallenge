@@ -1,5 +1,5 @@
 import { BACKEND_ROUTE } from '@/constants/backend_route'
-import { Conversion } from '@/types/conversion'
+import { Conversion } from '@/types/conversiontype'
 import { useQuery } from '@tanstack/react-query'
 
 const fetchConversions = async (): Promise<Conversion[]> => {

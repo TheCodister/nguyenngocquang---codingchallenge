@@ -1,5 +1,5 @@
 import { BACKEND_ROUTE } from '@/constants/backend_route'
-import { ConversionRequest } from '@/types/conversion'
+import { ConversionRequest } from '@/types/conversiontype'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const createConversion = async (conversionData: ConversionRequest) => {

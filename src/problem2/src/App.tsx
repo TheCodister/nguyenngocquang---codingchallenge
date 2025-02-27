@@ -5,16 +5,16 @@ import {
   CardFooter,
   CardHeader,
   Input,
-  Select,
-  SelectItem,
   Spinner,
   useDisclosure,
 } from '@heroui/react'
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import ConversionTable from './components/ConversionTable'
+import CurrencySelect from './components/CurrencySelect'
 import PopupModal from './components/PopupModal'
 import { useCreateConversion } from './hooks/useCreateConversion'
 import useGetPrice from './hooks/useGetPrice'
+import { calculateConvertedAmount, findPrice } from './utils/conversion'
 
 export default function CurrencySwapForm() {
   const { data: prices, isLoading, error } = useGetPrice()
@@ -27,27 +27,34 @@ export default function CurrencySwapForm() {
   const [modalMessage, setModalMessage] = useState('')
   const [modalTitle, setModalTitle] = useState('')
 
-  // Find price of the selected tokens
-  const fromPrice = prices?.find((p) => p.currency === fromToken)?.price || 0
-  const toPrice = prices?.find((p) => p.currency === toToken)?.price || 0
+  const fromPrice = useMemo(
+    () => findPrice(prices ?? [], fromToken),
+    [prices, fromToken],
+  )
 
-  // Calculate converted amount
-  const convertedAmount =
-    fromPrice && toPrice && amount
-      ? (parseFloat(amount) * fromPrice) / toPrice
-      : 0
+  const toPrice = useMemo(
+    () => findPrice(prices ?? [], toToken),
+    [prices, toToken],
+  )
+
+  const convertedAmount = useMemo(
+    () => calculateConvertedAmount(amount, fromPrice, toPrice),
+    [amount, fromPrice, toPrice],
+  )
 
   const { onOpen, isOpen, onOpenChange } = useDisclosure()
 
   const { mutate } = useCreateConversion() // Call the hook properly
 
-  const handleSwap = () => {
+  const handleSwap = useCallback(() => {
     if (!amount || parseFloat(amount) <= 0) {
       setModalTitle('Error')
       setModalMessage('Invalid conversion. Enter a number greater than 0.')
       onOpen()
       return
     }
+
+    setLoading(true)
     mutate(
       {
         fromCurrency: fromToken,
@@ -72,11 +79,7 @@ export default function CurrencySwapForm() {
         onSettled: () => setLoading(false),
       },
     )
-    // setLoading(true)
-    // setTimeout(() => {
-    //   setLoading(false)
-    // }, 2000)
-  }
+  }, [amount, convertedAmount, fromToken, toToken, mutate, onOpen])
 
   if (isLoading)
     return (
@@ -94,34 +97,12 @@ export default function CurrencySwapForm() {
       </CardHeader>
 
       <CardBody className="flex flex-col gap-4">
-        <label className="text-sm font-medium">From</label>
-        <Select
-          label="Choose currency you want to convert"
-          selectedKeys={new Set(fromToken ? [fromToken] : [])} // ✅ Ensure a valid Set
-          startContent={
-            <img
-              src={`../${fromToken}.svg`}
-              alt={fromToken}
-              className="w-4 h-4"
-            />
-          }
-          onSelectionChange={(keys) => {
-            const selectedValue = Array.from(keys)[0] as string
-            setFromToken(selectedValue)
-          }}
-        >
-          {tokens.map((token) => (
-            <SelectItem
-              key={token}
-              value={token}
-              startContent={
-                <img src={`../${token}.svg`} alt={token} className="w-4 h-4" />
-              }
-            >
-              {token}
-            </SelectItem>
-          ))}
-        </Select>
+        <CurrencySelect
+          label="From"
+          value={fromToken}
+          tokens={tokens}
+          onChange={setFromToken}
+        />
 
         {/* Amount Input */}
         <Input
@@ -134,29 +115,12 @@ export default function CurrencySwapForm() {
         />
 
         {/* To Currency Selection */}
-        <label className="text-sm font-medium">To</label>
-        <Select
-          label="Choose currency you want to convert to"
-          selectedKeys={new Set([toToken])}
-          startContent={
-            <img src={`../${toToken}.svg`} alt={toToken} className="w-4 h-4" />
-          }
-          onSelectionChange={(keys) =>
-            setToToken(Array.from(keys as Set<string>)[0])
-          }
-        >
-          {tokens.map((token) => (
-            <SelectItem
-              key={token}
-              value={token}
-              startContent={
-                <img src={`../${token}.svg`} alt={token} className="w-4 h-4" />
-              }
-            >
-              {token}
-            </SelectItem>
-          ))}
-        </Select>
+        <CurrencySelect
+          label="To"
+          value={toToken}
+          tokens={tokens}
+          onChange={setToToken}
+        />
 
         {/* Converted Amount */}
         <div className="mb-4 text-gray-600">
