@@ -40,7 +40,7 @@ export const getConversionById = async (
       return res.status(404).json({ error: "Conversion not found" });
     }
 
-    return res.json(conversion);
+    return res.status(200).json(conversion);
   } catch (error) {
     next(error);
     console.error("Error fetching conversion:", error);

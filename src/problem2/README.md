@@ -108,6 +108,18 @@ https://interview.switcheo.com/prices.json
 Feel free to fork this repository and contribute by submitting a pull request.
 🚀
 
+## 🔧 Changelog
+
+- **Refactored API Calls**: Replaced `fetch` with `axios` in
+  **useCreateConversion.ts**, **useDeleteConversion.ts**, and
+  **useGetConversion.ts** for better readability and error handling.
+- **Improved Maintainability**: Moved modal message content to
+  **constants/modal-message** for easier future updates.
+- **Optimized Performance**: Implemented `useMemo` and `useCallback` to reduce
+  unnecessary re-renders.
+- **Simplified Loading State**: Removed `isLoading` state—loading status is now
+  managed directly by React Query.
+
 ## 📜 License
 
 This project is licensed under the my License.

@@ -1,13 +1,9 @@
-import { BACKEND_ROUTE } from '@/constants/backend_route'
+import { BACKEND_ROUTE } from '@/constants/backend-route'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
 
 const deleteConversion = async (id: string) => {
-  const response = await fetch(`${BACKEND_ROUTE}/${id}`, {
-    method: 'DELETE',
-  })
-  if (!response.ok) {
-    throw new Error('Failed to delete conversion')
-  }
+  await axios.delete(`${BACKEND_ROUTE}/${id}`)
 }
 
 export const useDeleteConversion = () => {

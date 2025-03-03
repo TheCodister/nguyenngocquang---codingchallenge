@@ -1,19 +1,11 @@
-import { BACKEND_ROUTE } from '@/constants/backend_route'
+import { BACKEND_ROUTE } from '@/constants/backend-route'
 import { ConversionRequest } from '@/types/conversiontype'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import axios from 'axios'
 
 const createConversion = async (conversionData: ConversionRequest) => {
-  const response = await fetch(BACKEND_ROUTE, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(conversionData),
-  })
-
-  if (!response.ok) {
-    throw new Error('Failed to create conversion history')
-  }
-
-  return response.json()
+  const { data } = await axios.post(BACKEND_ROUTE, conversionData)
+  return data
 }
 
 export const useCreateConversion = () => {

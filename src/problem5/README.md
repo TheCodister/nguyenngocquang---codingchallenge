@@ -47,8 +47,7 @@ pnpm install
 Before starting the server, configure your environment variables in a `.env` file:
 
 ```
-DATABASE_URL=postgresql://user:password@localhost:5432/currency_db
-PORT=3001
+DATABASE_URL="file:./dev.db"
 ```
 
 Run database migrations and seed data:

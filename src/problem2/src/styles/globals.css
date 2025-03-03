@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  background-image: url(https://futurumgroup.com/wp-content/uploads/2023/10/SAP.Trustpair.Mitigating-Cybersecurity-Risks-to-Finance-and-Treasury-Teams.png);
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

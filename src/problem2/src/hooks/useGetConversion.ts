@@ -1,13 +1,11 @@
-import { BACKEND_ROUTE } from '@/constants/backend_route'
+import { BACKEND_ROUTE } from '@/constants/backend-route'
 import { Conversion } from '@/types/conversiontype'
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 const fetchConversions = async (): Promise<Conversion[]> => {
-  const response = await fetch(BACKEND_ROUTE)
-  if (!response.ok) {
-    throw new Error('Failed to fetch conversions')
-  }
-  return response.json()
+  const { data } = await axios.get<Conversion[]>(BACKEND_ROUTE)
+  return data
 }
 
 export const useGetConversions = () => {

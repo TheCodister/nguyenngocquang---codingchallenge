@@ -4,14 +4,19 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Divider,
   Input,
   Spinner,
   useDisclosure,
 } from '@heroui/react'
-import { useCallback, useMemo, useState } from 'react'
+import { ReactNode, useCallback, useMemo, useState } from 'react'
 import ConversionTable from './components/ConversionTable'
 import CurrencySelect from './components/CurrencySelect'
 import PopupModal from './components/PopupModal'
+import {
+  ERROR_NUMBER_MESSAGE,
+  ERROR_SWAP_MESSAGE,
+} from './constants/modal-message'
 import { useCreateConversion } from './hooks/useCreateConversion'
 import useGetPrice from './hooks/useGetPrice'
 import { calculateConvertedAmount, findPrice } from './utils/conversion'
@@ -23,8 +28,7 @@ export default function CurrencySwapForm() {
   const [fromToken, setFromToken] = useState('ETH')
   const [toToken, setToToken] = useState('bNEO')
   const [amount, setAmount] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [modalMessage, setModalMessage] = useState('')
+  const [modalMessage, setModalMessage] = useState<ReactNode>('')
   const [modalTitle, setModalTitle] = useState('')
 
   const fromPrice = useMemo(
@@ -44,17 +48,16 @@ export default function CurrencySwapForm() {
 
   const { onOpen, isOpen, onOpenChange } = useDisclosure()
 
-  const { mutate } = useCreateConversion() // Call the hook properly
+  const { mutate, isPending } = useCreateConversion() // Call the hook properly
 
   const handleSwap = useCallback(() => {
     if (!amount || parseFloat(amount) <= 0) {
-      setModalTitle('Error')
-      setModalMessage('Invalid conversion. Enter a number greater than 0.')
+      setModalTitle(ERROR_NUMBER_MESSAGE[0])
+      setModalMessage(ERROR_NUMBER_MESSAGE[1])
       onOpen()
       return
     }
 
-    setLoading(true)
     mutate(
       {
         fromCurrency: fromToken,
@@ -67,16 +70,18 @@ export default function CurrencySwapForm() {
         onSuccess: () => {
           setModalTitle('Success')
           setModalMessage(
-            `Swapped ${amount} ${fromToken} → ${convertedAmount.toFixed(6)} ${toToken}`,
+            <p>
+              Swapped <strong>{amount}</strong> {fromToken} →{' '}
+              <strong>{convertedAmount.toFixed(6)}</strong> {toToken}
+            </p>,
           )
           onOpen()
         },
         onError: (error) => {
-          setModalTitle('Error')
-          setModalMessage(error.message || 'An error occurred during the swap.')
+          setModalTitle(ERROR_SWAP_MESSAGE[0])
+          setModalMessage(error.message || ERROR_SWAP_MESSAGE[1])
           onOpen()
         },
-        onSettled: () => setLoading(false),
       },
     )
   }, [amount, convertedAmount, fromToken, toToken, mutate, onOpen])
@@ -91,11 +96,14 @@ export default function CurrencySwapForm() {
   if (error) return <div className="text-red-500">Error fetching prices</div>
 
   return (
-    <Card className="flex flex-col p-4 gap-4 max-w-4xl mx-auto mt-2 bg-primary-100 rounded-lg">
-      <CardHeader className="text-2xl font-semibold text-center flex items-center  justify-center">
+    <Card
+      className="flex flex-col p-4 gap-4 max-w-4xl rounded-lg"
+      style={{ backgroundColor: '#99c7fb' }}
+    >
+      <CardHeader className="text-2xl font-semibold text-center flex items-center justify-center">
         <h1>Currency Swap</h1>
       </CardHeader>
-
+      <Divider />
       <CardBody className="flex flex-col gap-4">
         <CurrencySelect
           label="From"
@@ -133,13 +141,11 @@ export default function CurrencySwapForm() {
         {/* Swap Button */}
         <Button
           color="primary"
+          isLoading={isPending}
           onPress={handleSwap}
-          disabled={
-            !amount || parseFloat(amount) <= 0 || !fromPrice || !toPrice
-          }
           className="w-full"
         >
-          {loading ? <Spinner size="md" color="white" /> : 'Swap'}
+          Swap
         </Button>
 
         {isOpen && (
@@ -151,6 +157,7 @@ export default function CurrencySwapForm() {
           />
         )}
       </CardBody>
+      <Divider />
       <CardFooter>
         <ConversionTable />
       </CardFooter>

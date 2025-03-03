@@ -15,7 +15,7 @@ const fetchPrices = async (): Promise<PriceData[]> => {
     (acc, curr) => {
       if (
         !acc[curr.currency] ||
-        new Date(acc[curr.currency].date) < new Date(curr.date)
+        new Date(acc[curr.currency].date) < new Date(curr.date) // Filter records with the latest date to avoid redundancy
       ) {
         acc[curr.currency] = curr
       }

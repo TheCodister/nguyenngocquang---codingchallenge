@@ -9,7 +9,7 @@ var sum_to_n_b = function (n) {
 };
 
 var sum_to_n_c = function (n) {
-  // Using Array and reduce() in functional programming. Complexity O(n)
+  // Using Array and reduce() in functional programming. Complexity O(n) less memory efficient than Recursion
   return [...Array(n).keys()]
     .map((i) => i + 1)
     .reduce((acc, val) => acc + val, 0);

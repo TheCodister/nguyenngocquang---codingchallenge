@@ -1,3 +1,4 @@
+import { DELETE_SUCCESS_MESSAGE } from '@/constants/modal-message'
 import { useDeleteConversion } from '@/hooks/useDeleteConversation'
 import { useGetConversions } from '@/hooks/useGetConversion'
 import TrashIcon from '@/icons/TrashIcon'
@@ -35,7 +36,6 @@ export default function ConversionTable() {
     <>
       <Table isStriped aria-label="Conversion History Table">
         <TableHeader>
-          <TableColumn>ID</TableColumn>
           <TableColumn>FROM</TableColumn>
           <TableColumn>TO</TableColumn>
           <TableColumn>AMOUNT</TableColumn>
@@ -46,11 +46,14 @@ export default function ConversionTable() {
         <TableBody>
           {(conversions ?? []).map((conversion) => (
             <TableRow key={conversion.id}>
-              <TableCell>{conversion.id}</TableCell>
               <TableCell>{conversion.fromCurrency}</TableCell>
               <TableCell>{conversion.toCurrency}</TableCell>
-              <TableCell>{conversion.fromAmount}</TableCell>
-              <TableCell>{conversion.toAmount}</TableCell>
+              <TableCell>
+                <strong>{conversion.fromAmount.toFixed(2)}</strong>
+              </TableCell>
+              <TableCell>
+                <strong>{conversion.toAmount.toFixed(2)}</strong>
+              </TableCell>
               <TableCell>
                 {new Date(conversion.date).toLocaleString()}
               </TableCell>
@@ -71,8 +74,8 @@ export default function ConversionTable() {
         <PopupModal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          title="Delete Succesfully"
-          content="Your conversion history has been deleted "
+          title={DELETE_SUCCESS_MESSAGE[0]}
+          content={DELETE_SUCCESS_MESSAGE[1]}
         />
       )}
     </>

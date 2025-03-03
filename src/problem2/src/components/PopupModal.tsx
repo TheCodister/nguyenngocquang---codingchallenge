@@ -7,11 +7,13 @@ import {
   ModalHeader,
 } from '@heroui/react'
 
+import { ReactNode } from 'react'
+
 interface PopupModalProps {
   isOpen: boolean
   title: string
   onOpenChange: (isOpen: boolean) => void
-  content: string
+  content: string | ReactNode
 }
 
 export default function PopupModal({
